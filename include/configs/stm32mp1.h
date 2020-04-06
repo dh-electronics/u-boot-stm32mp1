@@ -152,7 +152,8 @@
 	"env_check=if env info -p -d -q; then env save; fi\0" \
 	STM32MP_BOOTCMD \
 	BOOTENV \
-	"boot_net_usb_start=true\0"
+	"boot_net_usb_start=true\0" \
+	"usb_pgood_delay=1000\0"
 
 #endif /* ifndef CONFIG_SPL_BUILD */
 #endif /* ifdef CONFIG_DISTRO_DEFAULTS*/
