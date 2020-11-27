@@ -11,6 +11,7 @@
 #include <configs/stm32mp1.h>
 
 #define CONFIG_SPL_TARGET		"u-boot.itb"
+#undef STM32MP_BOOTCMD
 #define STM32MP_BOOTCMD "bootcmd_stm32mp=" \
 	"if run load_bootenv; then run importbootenv;fi;" \
 	"echo \"Boot over ${boot_device}${boot_instance}!\";" \
@@ -27,7 +28,7 @@
 	"fi;\0"
 
 #define EXTRA_ENV_SETTINGS CONFIG_EXTRA_ENV_SETTINGS 
-
+#undef CONFIG_EXTRA_ENV_SETTINGS
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	EXTRA_ENV_SETTINGS \
 	"load_bootenv="\
