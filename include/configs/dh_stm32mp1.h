@@ -25,13 +25,14 @@
 		"then env set boot_targets ubifs0; fi;" \
 		"run distro_bootcmd;" \
 	"fi;\0"
-#endif
+
+#define EXTRA_ENV_SETTINGS CONFIG_EXTRA_ENV_SETTINGS 
+
 #define CONFIG_EXTRA_ENV_SETTINGS \
-	CONFIG_EXTRA_ENV_SETTINGS \
+	EXTRA_ENV_SETTINGS \
 	"load_bootenv="\
 	"load usb ${usbdev}:${usbpart} ${loadaddr} DHupdate.ini;" \
 	"echo \"--> Update: found DHupdate.ini (${filesize} bytes)\"; \0"\
 	"importbootenv=echo Importing environment from DHupdate.ini...; env import -t ${loadaddr} ${filesize}\0" \
 #endif
-
 
