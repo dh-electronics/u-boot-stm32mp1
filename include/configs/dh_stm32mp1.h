@@ -25,10 +25,7 @@
 		  " test ${boot_device} = spi-nand ;" \
 		"then env set boot_targets ubifs0; fi;" \
 		"run distro_bootcmd;" \
-	"fi;\0"
-
-#define CONFIG_EXTRA_ENV_SETTINGS \
-	CONFIG_EXTRA_ENV_SETTINGS \
+	"fi;\0" \
 	"load_bootenv="\
 	"load usb ${usbdev}:${usbpart} ${loadaddr} DHupdate.ini;" \
 	"echo \"--> Update: found DHupdate.ini (${filesize} bytes)\"; \0"\
