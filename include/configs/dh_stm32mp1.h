@@ -27,10 +27,8 @@
 		"run distro_bootcmd;" \
 	"fi;\0"
 
-#define EXTRA_ENV_SETTINGS {CONFIG_EXTRA_ENV_SETTINGS} 
-#undef CONFIG_EXTRA_ENV_SETTINGS
 #define CONFIG_EXTRA_ENV_SETTINGS \
-	EXTRA_ENV_SETTINGS \
+	CONFIG_EXTRA_ENV_SETTINGS \
 	"load_bootenv="\
 	"load usb ${usbdev}:${usbpart} ${loadaddr} DHupdate.ini;" \
 	"echo \"--> Update: found DHupdate.ini (${filesize} bytes)\"; \0"\
