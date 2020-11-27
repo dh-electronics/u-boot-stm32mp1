@@ -33,6 +33,6 @@
 	"load_bootenv="\
 	"load usb ${usbdev}:${usbpart} ${loadaddr} DHupdate.ini;" \
 	"echo \"--> Update: found DHupdate.ini (${filesize} bytes)\"; \0"\
-	"importbootenv=echo Importing environment from DHupdate.ini...; env import -t ${loadaddr} ${filesize}\0" \
+	"importbootenv=echo Importing environment from DHupdate.ini...; env import -t ${loadaddr} ${filesize}\0"
 #endif
 
