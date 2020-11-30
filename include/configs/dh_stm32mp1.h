@@ -55,8 +55,10 @@
 		"sf update ${loadaddr} 0x80000 ${filesize} && "		\
 		"env set filesize1 && env set loadaddr1\0" \
 	"load_bootenv="\
-	"if load usb ${usbdev}:${usbpart} ${loadaddr} DHupdate.ini;" \
+	"usb stop; usb start; if load usb ${usbdev}:${usbpart} ${loadaddr} DHupdate.ini;" \
 	"then echo \"--> Update: found DHupdate.ini (${filesize} bytes)\"; fi;\0"\
-	"importbootenv=echo Importing environment from DHupdate.ini...; env import -t ${loadaddr} ${filesize}\0"
+	"importbootenv=echo Importing environment from DHupdate.ini...; env import -t ${loadaddr} ${filesize}\0"\
+	"usbdev=0\0"\
+	"usbpart=1\0"
 #endif
 
