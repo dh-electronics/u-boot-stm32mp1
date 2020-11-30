@@ -112,8 +112,8 @@ const uchar default_environment[] = {
 	CONFIG_EXTRA_ENV_SETTINGS
 #endif
 	"\0"
-#ifdef	CONFIG_DH_EXTRA_ENV_SETTINGS
-	CONFIG_DH_EXTRA_ENV_SETTINGS
+#ifdef	DH_EXTRA_ENV_SETTINGS
+	DH_EXTRA_ENV_SETTINGS
 #endif
 	"\0"
 #else /* CONFIG_USE_DEFAULT_ENV_FILE */
