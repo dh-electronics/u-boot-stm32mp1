@@ -14,6 +14,13 @@
 			compression = "none";
 			load = <0xc0100000>;
 			entry = <0xc0100000>;
+			hash-1 {
+				algo = "sha256";
+			};
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_IMG";
+			};
 		};
 
 		fdt-1 {
@@ -22,6 +29,13 @@
 			type = "flat_dt";
 			arch = "arm";
 			compression = "none";
+			hash-1 {
+				algo = "sha256";
+			};
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_IMG";
+			};
 		};
 
 		fdt-2 {
@@ -30,6 +44,13 @@
 			type = "flat_dt";
 			arch = "arm";
 			compression = "none";
+			hash-1 {
+				algo = "sha256";
+			};
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_IMG";
+			};
 		};
 
 		fdt-3 {
@@ -38,6 +59,13 @@
 			type = "flat_dt";
 			arch = "arm";
 			compression = "none";
+			hash-1 {
+				algo = "sha256";
+			};
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_IMG";
+			};
 		};
 	};
 
@@ -49,6 +77,11 @@
 			description = "dh,stm32mp15xx-dhcom-pdk2_somrev0_boardrev0";
 			firmware = "uboot";
 			fdt = "fdt-1";
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_CFG";
+				sign-images = "firmware", "fdt";
+			};
 		};
 
 		config-2 {
@@ -56,6 +89,11 @@
 			description = "dh,stm32mp15xx-dhcom-pdk2_somrev1_boardrev0";
 			firmware = "uboot";
 			fdt = "fdt-1";
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_CFG";
+				sign-images = "firmware", "fdt";
+			};
 		};
 
 		config-3 {
@@ -63,6 +101,11 @@
 			description = "dh,stm32mp15xx-dhcom-drc02_somrev0_boardrev0";
 			firmware = "uboot";
 			fdt = "fdt-2";
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_CFG";
+				sign-images = "firmware", "fdt";
+			};
 		};
 
 		config-4 {
@@ -70,20 +113,35 @@
 			description = "dh,stm32mp15xx-dhcom-drc02_somrev1_boardrev0";
 			firmware = "uboot";
 			fdt = "fdt-2";
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_CFG";
+				sign-images = "firmware", "fdt";
+			};
 		};
 
 		config-5 {
 			/* DT+SoM+board model */
 			description = "dh,stm32mp15xx-dhcom-picoitx_somrev0_boardrev0";
-			loadables = "uboot";
+			firmware = "uboot";
 			fdt = "fdt-3";
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_CFG";
+				sign-images = "firmware", "fdt";
+			};
 		};
 
 		config-6 {
 			/* DT+SoM+board model */
 			description = "dh,stm32mp15xx-dhcom-picoitx_somrev1_boardrev0";
-			loadables = "uboot";
+			firmware = "uboot";
 			fdt = "fdt-3";
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_CFG";
+				sign-images = "firmware", "fdt";
+			};
 		};
 
 		/* Add 587-100..587-400 with fdt-2..fdt-4 here */

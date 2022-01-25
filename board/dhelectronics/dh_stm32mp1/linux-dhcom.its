@@ -1,0 +1,57 @@
+/dts-v1/;
+
+/ {
+	description = "Linux and FDT for DHCOM STM32MP1";
+	#address-cells = <1>;
+
+	images {
+		linux-1 {
+			description = "Linux DHCOM STM32MP1";
+			data = /incbin/("u-boot-nodtb.bin"); /* REPLACE ME with a real kernel image */
+			type = "kernel";
+			os = "linux";
+			arch = "arm";
+			compression = "none";
+			load = <0xc4000000>;
+			entry = <0xc4000000>;
+			hash-1 {
+				algo = "sha256";
+			};
+			signature-1 {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_SSBL_IMG";
+			};
+		};
+
+		fdt-1 {
+			description = "FDT DHCOM STM32MP1";
+			data = /incbin/("arch/arm/dts/stm32mp15xx-dhcom-pdk2.dtb"); /* REPLACE ME with a dtb from linux */
+			type = "flat_dt";
+			arch = "arm";
+			compression = "none";
+			hash-1 {
+				algo = "sha256";
+			};
+			signature-1 {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_SSBL_IMG";
+			};
+		};
+	};
+
+	configurations {
+		default = "config-1";
+
+		config-1 {
+			description = "Linux and FDT for DHCOM STM32MP1";
+			kernel = "linux-1";
+			fdt = "fdt-1";
+			signature-1 {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_SSBL_CFG";
+				sign-images = "kernel", "fdt";
+			};
+
+		};
+	};
+};
