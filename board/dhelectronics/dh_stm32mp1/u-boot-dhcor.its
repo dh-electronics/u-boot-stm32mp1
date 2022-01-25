@@ -14,6 +14,13 @@
 			compression = "none";
 			load = <0xc0100000>;
 			entry = <0xc0100000>;
+			hash-1 {
+				algo = "sha256";
+			};
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_IMG";
+			};
 		};
 
 		fdt-1 {
@@ -22,6 +29,13 @@
 			type = "flat_dt";
 			arch = "arm";
 			compression = "none";
+			hash-1 {
+				algo = "sha256";
+			};
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_IMG";
+			};
 		};
 	};
 
@@ -33,6 +47,11 @@
 			description = "arrow,stm32mp15xx-avenger96_somrev0_boardrev1";
 			firmware = "uboot";
 			fdt = "fdt-1";
+			signature {
+				algo = "sha256,KEY_ALGO";
+				key-name-hint = "KEY_NAME_FSBL_CFG";
+				sign-images = "firmware", "fdt";
+			};
 		};
 
 		/* Add 586-200..586-400 with fdt-2..fdt-4 here */

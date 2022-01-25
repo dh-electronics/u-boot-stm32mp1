@@ -32,6 +32,13 @@ build_uboot() {
 }
 build_uboot
 
+# import .config to shell env
+# replace $() with ${} beforehand
+sed -E 's/\$\((.*)\)/\${\1}/g' .config > .config_env
+# shellcheck disable=SC1091
+. .config_env
+rm .config_env
+
 # Check KEY_ALGO and set exact required values
 case "${KEY_ALGO}" in
 rsa*) KEY_ALGO=rsa4096;;
@@ -52,7 +59,7 @@ for t in fsbl-img${KEY_POSTFIX} fsbl-cfg${KEY_POSTFIX} ssbl-img${KEY_POSTFIX} ss
 done
 
 # Copy fit image templates if not already in source root and fill current key algo and name's
-[ -r u-boot.its ] || cp board/dhelectronics/dh_stm32mp1/u-boot-dhcom.its u-boot.its
+[ -r u-boot.its ] || cp "${CONFIG_SPL_FIT_SOURCE:-"board/dhelectronics/dh_stm32mp1/u-boot-dhcom.its"}" u-boot.its
 [ -r linux.its ] || cp board/dhelectronics/dh_stm32mp1/linux-dhcom.its linux.its
 sed -i "s/KEY_ALGO\|rsa[0-9]*\|ecdsa[0-9]*/${KEY_ALGO}/g" u-boot.its linux.its
 sed -i "s/KEY_NAME_FSBL_IMG\|fsbl-img[-_a-zA-Z0-9]*/fsbl-img${KEY_POSTFIX}/g" u-boot.its
@@ -67,7 +74,7 @@ create_clean_signature_node() {
 
 # Create signed linux fit image and add public keys to dtb's
 # mkimage supports only one dtb at a time for the parameter K
-for dtb in arch/"${ARCH}"/dts/stm32mp15xx-dhcom*.dtb; do
+for dtb in arch/"${ARCH}"/dts/stm32mp15xx-dhco?*.dtb; do
     create_clean_signature_node "${dtb}"
     ./tools/mkimage -f linux.its -r -k "${KEY_DIR}" -K "${dtb}" linux-signed.itb
 done
