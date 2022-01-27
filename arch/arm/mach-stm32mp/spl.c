@@ -19,6 +19,7 @@
 #include <asm/arch/sys_proto.h>
 #include <mach/tzc.h>
 #include <linux/libfdt.h>
+#include <asm/arch/rom_api.h>
 
 u32 spl_boot_device(void)
 {
@@ -79,6 +80,7 @@ void spl_display_print(void)
 {
 	DECLARE_GLOBAL_DATA_PTR;
 	const char *model;
+	const char *auth_state_str;
 
 	/* same code than show_board_info() but not compiled for SPL
 	 * see CONFIG_DISPLAY_BOARDINFO & common/board_info.c
@@ -86,6 +88,25 @@ void spl_display_print(void)
 	model = fdt_getprop(gd->fdt_blob, 0, "model", NULL);
 	if (model)
 		log_info("Model: %s\n", model);
+
+	if(CONFIG_IS_ENABLED(FIT_SIGNATURE) &&
+		rom_api_loc >= (uintptr_t)STM32_SYSRAM_BASE &&
+		rom_api_loc < (uintptr_t)(STM32_SYSRAM_BASE + STM32_SYSRAM_SIZE)) {
+		switch(*ROM_API_AUTH_STATE) {
+			case ROM_API_AUTH_STATE_NONE:
+				auth_state_str = "none";
+				break;
+			case ROM_API_AUTH_STATE_FAILED:
+				auth_state_str = "failed";
+				break;
+			case ROM_API_AUTH_STATE_SUCCESS:
+				auth_state_str = "succeeded";
+				break;
+			default:
+				auth_state_str = "unknown";
+		}
+		log_info("Bootrom authentication: %s\n", auth_state_str);
+	}
 }
 #endif
 

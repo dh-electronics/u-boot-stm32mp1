@@ -11,7 +11,8 @@ obj-y += bsec.o
 ifdef CONFIG_SPL_BUILD
 obj-y += spl.o
 obj-y += tzc400.o
-obj-$(CONFIG_STM32_ECDSA_VERIFY) += ecdsa_romapi.o
+obj-$(CONFIG_SPL_DISPLAY_PRINT) += boot_params.o
+obj-$(CONFIG_STM32_ECDSA_VERIFY) += boot_params.o ecdsa_romapi.o
 else
 obj-y += cmd_stm32prog/
 obj-$(CONFIG_CMD_STM32KEY) += cmd_stm32key.o

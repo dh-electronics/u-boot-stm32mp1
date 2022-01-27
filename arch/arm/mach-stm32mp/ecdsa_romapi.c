@@ -11,35 +11,13 @@
 #include <crypto/ecdsa-uclass.h>
 #include <linux/libfdt.h>
 #include <dm/platdata.h>
-
-#define ROM_API_SUCCESS				0x77
-#define ROM_API_ECDSA_ALGO_PRIME_256V1		1
-#define ROM_API_ECDSA_ALGO_BRAINPOOL_256	2
-
-#define ROM_API_OFFSET_ECDSA_VERIFY		0x60
+#include <asm/arch/rom_api.h>
 
 struct ecdsa_rom_api {
 	uint32_t (*ecdsa_verify_signature)(const void *hash, const void *pubkey,
 					   const void *signature,
 					   uint32_t ecc_algo);
 };
-
-/*
- * Without forcing the ".data" section, this would get saved in ".bss". BSS
- * will be cleared soon after, so it's not suitable.
- */
-static uintptr_t rom_api_loc __section(".data");
-
-/*
- * The ROM gives us the API location in r0 when starting. This is only available
- * during SPL, as there isn't (yet) a mechanism to pass this on to u-boot.
- */
-void save_boot_params(unsigned long r0, unsigned long r1, unsigned long r2,
-		      unsigned long r3)
-{
-	rom_api_loc = r0;
-	save_boot_params_ret();
-}
 
 static void stm32mp_rom_get_ecdsa_functions(struct ecdsa_rom_api *rom)
 {
